@@ -4,11 +4,11 @@ bst = BinarySearchTree()
 
 print("Inserting Values into Binary Search Tree")
 bst.Insert(100)
-bst.Insert(50)
 bst.Insert(150)
+bst.Insert(50)
 bst.Insert(25)
-bst.Insert(75)
 bst.Insert(125)
+bst.Insert(75)
 bst.Insert(175)
 
 print("Insertion Successful!")

@@ -9,45 +9,50 @@ d5 = 5
 q = Queue()
 print(q.isEmpty())  #Print True
 
+print("Inserting Values into Queue")
 q.enqueue(d)
 q.enqueue(d2)
 q.enqueue(d3)
 q.enqueue(d4)
 q.enqueue(d5)
 
-temp = q.peek() 
-print(temp)    #Print 1
+print("Checking if queue is not Empty:")
+if not q.isEmpty():  # Print false
+    print("Test successful!")
+else:
+    print("Test unsuccessful")
 
-temp = q.dequeue()
-print(temp)    #Print 1
+print("Dequeue Test:")    
+q.dequeue()
+if q.peek() == 2:
+    print("Test successful!")
+else:
+    print("Test unsuccessful")
 
-print(q.isEmpty())  # Print false
+print("Dequeue Test:")     
+q.dequeue()
+if q.peek() == 3:
+    print("Test successful!")
+else:
+    print("Test unsuccessful")
 
-temp = q.peek()     #Print 2
-print(temp)
+print("Dequeue Test:") 
+q.dequeue()
+if q.peek() == 4:
+    print("Test successful!")
+else:
+    print("Test unsuccessful")
+    
+print("Dequeue Test:") 
+q.dequeue()
+if q.peek() == 5:
+    print("Test successful!")
+else:
+    print("Test unsuccessful")
+q.dequeue()
 
-temp = q.dequeue()
-print(temp)    #Print 2
-
-temp = q.peek()     #Print 3
-print(temp)
-
-temp = q.dequeue()
-print(temp)    #Print 3
-
-temp = q.peek()     #Print 4
-print(temp)
-
-print(q.isEmpty())  # Print false
-
-temp = q.dequeue()
-print(temp)    #Print 4
-
-temp = q.peek()     #Print 5
-print(temp)
-
-temp = q.dequeue()
-print(temp)    #Print 5
-
-
-print(q.isEmpty())  # Print true
+print("Checking if queue is Empty:")
+if q.isEmpty():
+    print("Test successful!")
+else:
+    print("Test unsuccessful")

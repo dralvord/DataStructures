@@ -1,3 +1,4 @@
+from Queue import Queue
 class Tree:
     def __init__(self,data):
         self.left = None
@@ -107,3 +108,32 @@ class BinarySearchTree:
         
         if currentNode.left != None:
             self.PD(currentNode.left)
+            
+            
+    #----------Level Order Print-----------
+    def PrintLevelOrder(self): 
+        h = self.height(self.root)
+        currentNode = self.root
+        for i in range(1, h+1): 
+            self.printGivenLevel(currentNode, i) 
+            
+    def printGivenLevel(self, currentNode , level): 
+        if currentNode is None: 
+            return
+        if level == 1: 
+            print "%d" %(currentNode.data), 
+        elif level > 1 : 
+            self.printGivenLevel(currentNode.left , level-1) 
+            self.printGivenLevel(currentNode.right , level-1) 
+            
+    def height(self, currentNode): 
+        if currentNode is None: 
+            return 0 
+        else : 
+            lheight = self.height(currentNode.left) 
+            rheight = self.height(currentNode.right) 
+  
+            if lheight > rheight : 
+                return lheight+1
+            else: 
+                return rheight+1
