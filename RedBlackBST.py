@@ -43,32 +43,6 @@ class RedBlackBST(BinarySearchTree):
             print("Duplicate Data.")
     
     #----------------------------Balance Tree-----------------------------------
-        
-    def BalanceTree2(self,currentNode):
-        if currentNode.red:
-            return self
-
-        if currentNode.left != None and currentNode.left.red:
-            if currentNode.right != None and currentNode.right.red:
-                currentNode.red = False
-            if currentNode.left.left != None and currentNode.left.left.red:
-                currentNode.red = False
-                self.RotateRight(currentNode)
-            if currentNode.left.right != None and currentNode.left.right.red:
-                currentNode.red = False
-                self.RotateLeft(currentNode.left)
-                self.RotateRight(currentNode)
-            return self
-
-        if currentNode.right != None and currentNode.right.red:
-            if currentNode.right.right != None and currentNode.right.right.red:
-                currentNode.red = False
-                self.RotateLeft(currentNode)
-            if currentNode.right.right != None and currentNode.right.left.red:
-                currentNode.red = False
-                self.RotateRight(currentNode.right)
-                self.RotateLeft(currentNode)
-        return self
     
     def BalanceTree(self, currentNode):
         "Restore red-black properties after insert."
