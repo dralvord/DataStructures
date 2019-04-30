@@ -26,57 +26,62 @@ class RedBlackBST(BinarySearchTree):
         if currentNode.data < data:
             if currentNode.right == None:
                 newTree = RBTree(data)
+                newTree.parent = currentNode
                 currentNode.right = newTree
-                currentNode.right.parent = parent
-                self.BalanceTree(currentNode)
+                #currentNode.right.parent = currentNode
+                self.BalanceTree(currentNode.right)
             else:
                 self.InsertNode(currentNode.right, data, currentNode)
         elif currentNode.data > data:
             if currentNode.left == None:
                 newTree = RBTree(data)
+                newTree.parent = currentNode
                 currentNode.left = newTree
-                currentNode.left.parent = parent
-                self.BalanceTree(currentNode)
+                #currentNode.left.parent = currentNode
+                self.BalanceTree(currentNode.left)
             else:
                 self.InsertNode(currentNode.left, data, currentNode)
         else:
             print("Duplicate Data.")
     
+        
     #----------------------------Balance Tree-----------------------------------
-    
+        
     def BalanceTree(self, currentNode):
-        "Restore red-black properties after insert."
-        while currentNode.parent != None and currentNode.parent.red:
-            if currentNode.parent.parent != None and currentNode.parent.parent.left != None and currentNode.parent.parent.right != None and currentNode.parent == currentNode.parent.parent.left:
+        print("In Balance Tree")
+        while currentNode.parent!= None and currentNode.parent.parent!= None and currentNode.parent.red:
+            if currentNode.parent == currentNode.parent.parent.left:
                 y = currentNode.parent.parent.right
-                if y.red:
+                if y != None and y.red:
+                    print("current Node is red")
                     currentNode.parent.red = False
                     y.red = False
                     currentNode.parent.parent.red = True
                     currentNode = currentNode.parent.parent
                 else:
+                    print("currentNode is black")
                     if currentNode == currentNode.parent.right:
                         currentNode = currentNode.parent
                         self.RotateLeft(currentNode)
                     currentNode.parent.red = False
                     currentNode.parent.parent.red = True
                     self.RotateRight(currentNode.parent.parent)
-            elif currentNode.parent.parent != None and currentNode.parent.parent.left != None and currentNode.parent.parent.right != None:
+            else:
                 y = currentNode.parent.parent.left
-                if y.red:
+                if y!= None and y.red:
+                    print("currentNode is red")
                     currentNode.parent.red = False
                     y.red = False
                     currentNode.parent.parent.red = True
                     currentNode = currentNode.parent.parent
                 else:
+                    print("currentNode is black")
                     if currentNode == currentNode.parent.left:
                         currentNode = currentNode.parent
                         self.RotateRight(currentNode)
                     currentNode.parent.red = False
                     currentNode.parent.parent.red = True
                     self.RotateLeft(currentNode.parent.parent)
-            else:
-                currentNode = currentNode.parent
         self.root.red = False
     
     #----------------------Rotate Left----------------------------    
@@ -90,11 +95,10 @@ class RedBlackBST(BinarySearchTree):
         sibling.parent = currentNode.parent
         if currentNode.parent == None:
             self.root = sibling
+        elif currentNode == currentNode.parent.left:
+            currentNode.parent.left = sibling
         else:
-            if currentNode == currentNode.parent.left:
-                currentNode.parent.left = sibling
-            else:
-                currentNode.parent.right = sibling
+            currentNode.parent.right = sibling
         sibling.left = currentNode
         currentNode.parent = sibling
     
@@ -109,14 +113,19 @@ class RedBlackBST(BinarySearchTree):
         sibling.parent = currentNode.parent
         if currentNode.parent == None:
             self.root = sibling
-        else:
-            if currentNode == currentNode.parent.right:
-                currentNode.parent.right = sibling
-            else: 
-                currentNode.parent.left = sibling
+        elif currentNode == currentNode.parent.right:
+            currentNode.parent.right = sibling
+        else: 
+            currentNode.parent.left = sibling
         sibling.right = currentNode
         currentNode.parent = sibling
-        
+    #--------------------------- Delete -----------------------------------
+    #def Delete(self, data):
+    #    currentNode = BinarySearchTree.Delete(self, data)
+    #    if currentNode != None:
+    
+    #def BalanceDelete(self, currentNode)        
+            
     #----------------------Find------------------------------
     def Find(self,data):
         BinarySearchTree.Find(self, data)
@@ -131,3 +140,30 @@ class RedBlackBST(BinarySearchTree):
     def PrintRoot(self):
         print(self.root.data)
         
+    #----------Level Order Print-----------
+    def PrintLevelOrder(self): 
+        h = self.height(self.root)
+        currentNode = self.root
+        for i in range(1, h+1): 
+            self.printGivenLevel(currentNode, i) 
+            
+    def printGivenLevel(self, currentNode , level): 
+        if currentNode is None: 
+            return
+        if level == 1: 
+            print "%d(%s)" %(currentNode.data, currentNode.red), 
+        elif level > 1 : 
+            self.printGivenLevel(currentNode.left , level-1) 
+            self.printGivenLevel(currentNode.right , level-1) 
+            
+    def height(self, currentNode): 
+        if currentNode is None: 
+            return 0 
+        else : 
+            lheight = self.height(currentNode.left) 
+            rheight = self.height(currentNode.right) 
+  
+            if lheight > rheight : 
+                return lheight+1
+            else: 
+                return rheight+1
